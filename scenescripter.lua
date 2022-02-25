@@ -8,7 +8,7 @@ local function load()
 end
 a.load = load
 
-local function update(dt)
+local function update()
     if a.started then
         a.timepassed = love.timer.getTime() - a.starttime
 
