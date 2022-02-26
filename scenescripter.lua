@@ -1,5 +1,5 @@
 local builder = {}
-local function buildScene()
+builder.buildScene = function()
     local a = {}
 
     local function load()
@@ -46,6 +46,5 @@ local function buildScene()
 
     return a
 end
-builder.buildScene = buildScene
 
 return builder

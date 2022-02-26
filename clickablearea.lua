@@ -1,5 +1,5 @@
 local builder = {}
-local function buildArea()
+builder.buildArea = function()
     local a = {}
 
     local function load(x, y, width, height, func, hovertext)
@@ -50,6 +50,5 @@ local function buildArea()
     
     return a
 end
-builder.buildArea = buildArea
 
 return builder
