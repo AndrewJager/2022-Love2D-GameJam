@@ -9,8 +9,8 @@ function love.load()
     love.window.setMode(1000, 700)
 
     manager.load(utils)
-    manager.addScene(require("testscene"))
-    manager.setScene("Test Scene")
+    manager.addScene(require("outsidebefore"))
+    manager.setScene("Outside-Before")
 end
 
 function love.update(dt)
