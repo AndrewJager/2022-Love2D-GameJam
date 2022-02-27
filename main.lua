@@ -4,12 +4,16 @@ utils.sceneScripter = require("scenescripter")
 utils.clickableArea = require("clickablearea")
 
 local manager = require("scenemanager")
+utils.manager = manager
 
 function love.load()
     love.window.setMode(1000, 700)
 
     manager.load(utils)
     manager.addScene(require("outsidebefore"))
+    manager.addScene(require("livingbefore"))
+    manager.addScene(require("bedroombefore"))
+    manager.addScene(require("basementbefore"))
     manager.setScene("Outside-Before")
 end
 

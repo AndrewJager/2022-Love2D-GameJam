@@ -5,7 +5,7 @@ a.load = function(utils)
     a.background = love.graphics.newImage("img/outside-before.png")
 
     local function enterDoor()
-        
+        utils.manager.setScene("Living-Before")
     end
     a.door = utils.clickableArea.buildArea()
     a.door.load(470, 230, 70, 165, enterDoor, "Enter house")

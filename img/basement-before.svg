@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="261.2561mm"
+   height="146.70573mm"
+   viewBox="0 0 261.2561 146.70573"
+   version="1.1"
+   id="svg856"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="basement-before.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview858"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.7198092"
+     inkscape:cx="1100.9862"
+     inkscape:cy="99.331878"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs853" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-19.342252,-27.85156)">
+    <rect
+       style="fill:none;stroke:#010000;stroke-width:1.99904;stroke-linejoin:round"
+       id="rect846"
+       width="259.25705"
+       height="143.72853"
+       x="20.313347"
+       y="29.913681"
+       transform="translate(0.02842535,-1.0626008)" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:7.80472;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 79.187651,265.34809 52.097139,-1.38925 0.57545,50.01325 h 56.04739 l 0.94744,52.95954 53.57029,0.61075 v 50.70788 l 60.43268,0.77851 0.0839,55.57029 65.90583,2.61074 -1.38926,59.04342 59.04343,1.38926 -2,52.09714 62.51656,0.69463 -1.47315,60.43267 L 79.187651,265.34809"
+       id="path968"
+       transform="scale(0.26458333)"
+       sodipodi:nodetypes="cccccccccccccccc" />
+    <g
+       id="g2621"
+       transform="translate(6.8001238,24.950661)">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:7.80472;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect2515"
+         width="4.9117656"
+         height="152.26472"
+         x="621.82947"
+         y="398.83536"
+         transform="matrix(0.25982981,0.04992801,-0.04992801,0.25982981,26.681744,-28.911559)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:7.80472;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect2515-6"
+         width="4.9117656"
+         height="152.26472"
+         x="621.82947"
+         y="398.83536"
+         transform="matrix(-0.25982981,0.04992801,0.04992801,0.25982981,306.10761,-28.777808)" />
+    </g>
+    <g
+       id="g2621-6"
+       transform="translate(100.64802,25.131624)">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:7.80472;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect2515-3"
+         width="4.9117656"
+         height="152.26472"
+         x="621.82947"
+         y="398.83536"
+         transform="matrix(0.25982981,0.04992801,-0.04992801,0.25982981,26.681744,-28.911559)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:7.80472;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect2515-6-9"
+         width="4.9117656"
+         height="152.26472"
+         x="621.82947"
+         y="398.83536"
+         transform="matrix(-0.25982981,0.04992801,0.04992801,0.25982981,306.10761,-28.777808)" />
+    </g>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:6.61477;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2677"
+       width="257.01254"
+       height="6.9462852"
+       x="743.2525"
+       y="425.80728"
+       transform="matrix(0.36833911,0,0,0.26458333,-101.66661,21.695841)" />
+  </g>
+</svg>
