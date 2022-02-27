@@ -10,40 +10,47 @@ builder.buildArea = function()
         a.func = func
         a.hover = false
         a.hovertext = hovertext
+        a.enabled = true
     end
     a.load = load
     
     local function draw()
-        if a.hover then
-            love.graphics.setColor(1, 1, 1)
-            love.graphics.setLineWidth(3)
-    
-            local padding = 5
-            love.graphics.print(a.hovertext, a.x + a.width + padding, a.y + (a.height / 2) - padding)
-        else
-            love.graphics.setColor(0, 0, 0.7) 
-            love.graphics.setLineWidth(1)
+        if a.enabled then
+            if a.hover then
+                love.graphics.setColor(1, 1, 1)
+                love.graphics.setLineWidth(3)
+        
+                local padding = 5
+                love.graphics.print(a.hovertext, a.x + a.width + padding, a.y + (a.height / 2) - padding)
+            else
+                love.graphics.setColor(0, 0, 0.7) 
+                love.graphics.setLineWidth(1)
+            end
+            love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
         end
-        love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
     end
     a.draw = draw
     
     local function mousemoved(x, y)
-        if ((x > a.x) and (x < (a.x + a.width)))
-            and ((y > a.y) and (y < (a.y + a.height)))
-        then
-            a.hover = true
-        else
-            a.hover = false
+        if a.enabled then 
+            if ((x > a.x) and (x < (a.x + a.width)))
+                and ((y > a.y) and (y < (a.y + a.height)))
+            then
+                a.hover = true
+            else
+                a.hover = false
+            end
         end
     end
     a.mousemoved = mousemoved
     
     local function mousepressed(x, y)
-        if ((x > a.x) and (x < (a.x + a.width)))
-            and ((y > a.y) and (y < (a.y + a.height)))
-        then
-            a.func() --Execute function
+        if a.enabled then
+            if ((x > a.x) and (x < (a.x + a.width)))
+                and ((y > a.y) and (y < (a.y + a.height)))
+            then
+                a.func() --Execute function
+            end
         end
     end
     a.mousepressed = mousepressed
