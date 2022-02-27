@@ -9,6 +9,7 @@ a.load = function(utils)
     end
     a.door = utils.clickableArea.buildArea()
     a.door.load(420, 270, 100, 165, enterDoor, "Door")
+    a.treeImg = love.graphics.newImage("img/tree-after.png")
 
     local function window()
         utils.manager.setScene("Bedroom-After")
@@ -21,6 +22,12 @@ a.load = function(utils)
     end
     a.switch = utils.clickableArea.buildArea()
     a.switch.load(15, 600, 80, 80, switch, "Swap to the Before")
+
+    local function tree()
+        
+    end
+    a.tree = utils.clickableArea.buildArea()
+    a.tree.load(790, 150, 80, 300, tree, "Tree")
 end
 
 a.update = function()
@@ -34,21 +41,29 @@ a.draw = function()
     love.graphics.draw(a.background, 100, 30)
     love.graphics.pop()
 
+    love.graphics.push()
+    love.graphics.scale(0.6, 0.6)
+    love.graphics.draw(a.treeImg, 1050, 0)
+    love.graphics.pop()
+
     a.door.draw()
     a.switch.draw()
     a.window.draw()
+    a.tree.draw()
 end
 
 a.mousemoved = function(x, y)
     a.door.mousemoved(x, y)
     a.switch.mousemoved(x, y)
     a.window.mousemoved(x, y)
+    a.tree.mousemoved(x, y)
 end
 
 a.mousepressed = function(x, y)
     a.door.mousepressed(x, y)
     a.switch.mousepressed(x, y)
     a.window.mousepressed(x, y)
+    a.tree.mousepressed(x, y)
 end
 
 return a
