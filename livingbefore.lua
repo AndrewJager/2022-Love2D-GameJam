@@ -17,7 +17,7 @@ a.load = function(utils)
     a.bedroomDoor.load(100, 155, 85, 310, enterRoom, "Bedroom")
 
     local function pictures()
-        
+        utils.manager.addDialog("Family pictures")
     end
     a.pictures = utils.clickableArea.buildArea()
     a.pictures.load(375, 85, 280, 170, pictures, "Pictures")

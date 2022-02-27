@@ -17,8 +17,7 @@ function love.load()
     manager.addScene(require("outsideafter"))
     manager.addScene(require("bedroomafter"))
     manager.addScene(require("livingafter"))
-    -- manager.setScene("Outside-Before")
-    manager.setScene("Living-After")
+    manager.setScene("Outside-Before")
 end
 
 function love.update(dt)
