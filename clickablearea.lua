@@ -20,8 +20,8 @@ builder.buildArea = function()
                 love.graphics.setColor(1, 1, 1)
                 love.graphics.setLineWidth(3)
         
-                local padding = 5
-                love.graphics.print(a.hovertext, a.x + a.width + padding, a.y + (a.height / 2) - padding)
+                love.graphics.print(a.hovertext, a.x, a.y - 20)
+                -- love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
             else
                 love.graphics.setColor(0, 0, 0.7) 
                 love.graphics.setLineWidth(1)
