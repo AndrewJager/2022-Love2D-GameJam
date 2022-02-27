@@ -14,7 +14,11 @@ function love.load()
     manager.addScene(require("livingbefore"))
     manager.addScene(require("bedroombefore"))
     manager.addScene(require("basementbefore"))
-    manager.setScene("Outside-Before")
+    manager.addScene(require("outsideafter"))
+    manager.addScene(require("bedroomafter"))
+    manager.addScene(require("livingafter"))
+    -- manager.setScene("Outside-Before")
+    manager.setScene("Living-After")
 end
 
 function love.update(dt)
