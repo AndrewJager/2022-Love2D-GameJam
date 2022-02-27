@@ -10,6 +10,7 @@ a.load = function(utils)
         return item
     end
     a.pillow = makeItem("Pillow", love.graphics.newImage("img/items/pillow.png"), "Living-After", 1.05)
+    a.ladder = makeItem("Ladder", love.graphics.newImage("img/items/ladder.png"), "Basement-Before", 0.16)
 
     a.scenes = {}
     a.selectedScene = nil
@@ -25,6 +26,11 @@ a.load = function(utils)
     a.d5 = "Five"
     a.d6 = "Six"
     a.feedback = "Cats are evil"
+
+    a.itemX = 630
+    a.itemY = 600
+    a.itemW = 80
+    a.itemH = 80
 end
 
 a.update = function(dt)
@@ -45,7 +51,10 @@ a.draw = function()
     love.graphics.print(a.d5, 115, 635)
     love.graphics.print(a.d6, 115, 655)
 
-    love.graphics.rectangle("line", 630, 600, 80, 80)
+    if a.itemSelected then
+        love.graphics.setColor(1, 1, 1, 1)
+    end
+    love.graphics.rectangle("line", a.itemX, a.itemY, a.itemW, a.itemH)
     if a.curItem ~= nil then
         love.graphics.push()
         love.graphics.translate(635, 605)
@@ -65,6 +74,11 @@ end
 
 a.mousepressed = function(x, y)
     a.selectedScene.scene.mousepressed(x, y)
+
+    if (x > a.itemX and (x < (a.itemX + a.itemW)))
+        and (y > a.itemY and (y < (a.itemY + a.itemH))) then
+        a.itemSelected = not a.itemSelected        
+    end
 end
 
 a.addScene = function(scene)
@@ -100,6 +114,14 @@ a.setCurItem = function(item)
         added = true
     end
     return added
+end
+
+a.dropCurItem = function()
+    if a.curItem ~= nil then
+        a.feedback = "Dropped " .. a.curItem.name
+        a.curItem = nil
+        a.itemSelected = false
+    end
 end
 
 return a

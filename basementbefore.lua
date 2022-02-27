@@ -3,6 +3,7 @@ local a = {}
 a.load = function(utils)
     a.name = "Basement-Before"
     a.background = love.graphics.newImage("img/basement-before.png")
+    a.utils = utils
 
     local function exit()
         utils.manager.setScene("Living-Before")
@@ -11,10 +12,15 @@ a.load = function(utils)
     a.stairs.load(85, 155, 350, 335, exit, "Exit Basement")
 
     local function ladder()
-        
+        if utils.manager.ladder.loc == "Basement-Before" then
+            utils.manager.setCurItem(utils.manager.ladder) 
+        elseif (utils.manager.curItem.name == "Ladder") and utils.manager.itemSelected then
+            utils.manager.ladder.loc = "Basement-Before"
+            utils.manager.dropCurItem()
+        end
     end
     a.ladder = utils.clickableArea.buildArea()
-    a.ladder.load(600, 190, 85, 300, ladder, "Ladder")
+    a.ladder.load(575, 215, 130, 270, ladder, "Ladder")
 
     local function hammer()
         
@@ -39,6 +45,15 @@ a.draw = function()
     love.graphics.scale(0.85, 0.85)
     love.graphics.draw(a.background, 98, 30)
     love.graphics.pop()
+
+    local ladder = a.utils.manager.ladder
+    if (ladder.loc == "Basement-Before") then
+        love.graphics.push()
+        love.graphics.translate(a.ladder.x + 2, a.ladder.y + 2)
+        love.graphics.scale(0.5, 0.5)
+        love.graphics.draw(ladder.img)
+        love.graphics.pop()
+    end
 
     a.stairs.draw()
     a.ladder.draw()
