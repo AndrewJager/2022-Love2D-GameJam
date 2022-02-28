@@ -21,12 +21,12 @@ builder.buildArea = function()
                 love.graphics.setLineWidth(3)
         
                 love.graphics.print(a.hovertext, a.x, a.y - 20)
-                -- love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
+                love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
             else
                 love.graphics.setColor(0, 0, 0.7) 
                 love.graphics.setLineWidth(1)
             end
-            love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
+            -- love.graphics.rectangle("line", a.x, a.y, a.width, a.height)
         end
     end
     a.draw = draw
