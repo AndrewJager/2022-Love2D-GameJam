@@ -39,11 +39,15 @@ a.load = function(utils)
     local function column()
         if (a.manager.curItem ~= nil) and (a.manager.curItem.name == "Sledgehammer") 
             and a.manager.itemSelected then
-            if a.colState <= 4 then
-                a.colState = a.colState + 1
-            end
-            if a.colState == 5 then
-                
+            if a.manager.dreamed then
+                if a.colState <= 4 then
+                    a.colState = a.colState + 1
+                end
+                if a.colState == 5 then
+                    
+                end
+            else
+                a.manager.feedback = "That doesn't seem very wise"
             end
         end
     end

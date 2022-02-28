@@ -44,6 +44,7 @@ a.load = function(utils)
     a.readnote = false
     a.viewedpictures = false
     a.picturePlaced = false
+    a.dreamed = false
 end
 
 a.update = function(dt)

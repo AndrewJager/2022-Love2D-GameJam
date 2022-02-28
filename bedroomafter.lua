@@ -35,7 +35,7 @@ a.load = function(utils)
                 a.manager.dropCurItem()
         elseif a.manager.picturePlaced then
             if a.pillowPlaced then
-                a.manager.addDialog("Sleeping")
+                a.manager.dreamed = true
             else
                 a.manager.feedback = "You don't want to sleep without a pillow"
             end
