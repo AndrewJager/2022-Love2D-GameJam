@@ -28,7 +28,7 @@ builder.buildScene = function()
     a.update = update
 
     local function draw()
-        -- love.graphics.print(a.timepassed .. "   " .. test, 10, 200)
+        -- Put debug code here if needed
     end
     a.draw = draw
 

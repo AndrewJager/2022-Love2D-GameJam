@@ -1,18 +1,23 @@
 local a = {}
 
 a.load = function(utils)
-    local function makeItem(name, img, initLoc, scale) 
+    local function makeItem(name, img, initLoc, scale, rot45, offsetX, offsetY) 
         local item = {}
         item.name = name
         item.img = img
         item.loc = initLoc
         item.scale = scale
+        item.rot45 = rot45
+        item.offsetX = offsetX
+        item.offsetY = offsetY
+        table.insert(a.items, item)
         return item
     end
-    a.pillow = makeItem("Pillow", love.graphics.newImage("img/items/pillow.png"), "Living-After", 1.05)
-    a.ladder = makeItem("Ladder", love.graphics.newImage("img/items/ladder.png"), "Basement-Before", 0.14)
-    a.hammer = makeItem("Sledgehammer", love.graphics.newImage("img/items/sledgehammer.png"), "Basement-Before", 0.15)
-    a.shovel = makeItem("Shovel", love.graphics.newImage("img/items/shovel.png"), "Basement-Before", 0.15)
+    a.items = {}
+    a.pillow = makeItem("Pillow", love.graphics.newImage("img/items/pillow.png"), "Living-After", 1.05, false, 0, 0)
+    a.ladder = makeItem("Ladder", love.graphics.newImage("img/items/ladder.png"), "Basement-Before", 0.14, false, 20, 2)
+    a.hammer = makeItem("Sledgehammer", love.graphics.newImage("img/items/sledgehammer.png"), "Basement-Before", 0.15, true, 50, 5)
+    a.shovel = makeItem("Shovel", love.graphics.newImage("img/items/shovel.png"), "Basement-Before", 0.14, true, 60, 0)
 
     a.scenes = {}
     a.selectedScene = nil
@@ -33,6 +38,10 @@ a.load = function(utils)
     a.itemY = 600
     a.itemW = 80
     a.itemH = 80
+
+    -- goals
+    a.readnote = false
+    a.viewedpictures = false
 end
 
 a.update = function(dt)
@@ -59,8 +68,12 @@ a.draw = function()
     love.graphics.rectangle("line", a.itemX, a.itemY, a.itemW, a.itemH)
     if a.curItem ~= nil then
         love.graphics.push()
-        love.graphics.translate(635, 605)
+        love.graphics.translate(635, 600)
+        love.graphics.translate(a.curItem.offsetX, a.curItem.offsetY)
         love.graphics.scale(a.curItem.scale, a.curItem.scale)
+        if a.curItem.rot45 then
+            love.graphics.rotate(math.rad(45))
+        end
         love.graphics.draw(a.curItem.img)
         love.graphics.pop()
     end
@@ -114,7 +127,10 @@ a.setCurItem = function(item)
         item.loc = "Held"
         a.feedback = "Picked up " .. item.name
         added = true
+    else
+        a.feedback = "You are already holding an item!"
     end
+
     return added
 end
 
@@ -123,6 +139,27 @@ a.dropCurItem = function()
         a.feedback = "Dropped " .. a.curItem.name
         a.curItem = nil
         a.itemSelected = false
+    end
+end
+
+a.getItem = function(name) 
+    for i = 1, #a.items do
+        if a.items[i].name == name then
+            return a.items[i]
+        end
+    end
+end
+
+a.areaHandler = function(item, locName, clickArea, hoverNoItem, hoverItem)
+    if item.loc == locName then
+        a.setCurItem(item)
+        clickArea.hovertext = hoverNoItem
+    elseif (a.curItem ~= nil) and (a.curItem.name == item.name) and a.itemSelected then
+        item.loc = locName
+        a.dropCurItem()
+        clickArea.hovertext = hoverItem
+    elseif (a.curItem ~= nil) and a.itemSelected then
+        a.feedback = "Cannot do that"
     end
 end
 

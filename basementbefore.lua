@@ -3,7 +3,7 @@ local a = {}
 a.load = function(utils)
     a.name = "Basement-Before"
     a.background = love.graphics.newImage("img/basement-before.png")
-    a.utils = utils
+    a.manager = utils.manager
 
     local function exit()
         utils.manager.setScene("Living-Before")
@@ -12,40 +12,19 @@ a.load = function(utils)
     a.stairs.load(85, 155, 350, 335, exit, "Exit Basement")
 
     local function ladder()
-        if utils.manager.ladder.loc == "Basement-Before" then
-            utils.manager.setCurItem(utils.manager.ladder) 
-            a.ladder.hovertext = "Storage - Ladder"
-        elseif (utils.manager.curItem.name == "Ladder") and utils.manager.itemSelected then
-            utils.manager.ladder.loc = "Basement-Before"
-            utils.manager.dropCurItem()
-            a.ladder.hovertext = "Ladder" 
-        end
+        a.manager.areaHandler(a.manager.ladder, "Basement-Before", a.ladder, "Storage - Ladder", "Ladder")
     end
     a.ladder = utils.clickableArea.buildArea()
     a.ladder.load(575, 215, 130, 270, ladder, "Ladder")
 
     local function hammer()
-        if utils.manager.hammer.loc == "Basement-Before" then
-            utils.manager.setCurItem(utils.manager.hammer) 
-            a.hammer.hovertext = "Storage - Sledgehammer"
-        elseif (utils.manager.curItem.name == "Sledgehammer") and utils.manager.itemSelected then
-            utils.manager.hammer.loc = "Basement-Before"
-            utils.manager.dropCurItem()
-            a.hammer.hovertext = "Sledgehammer"
-        end
+        a.manager.areaHandler(a.manager.hammer, "Basement-Before", a.hammer, "Storage - Hammer", "Hammer")
     end
     a.hammer = utils.clickableArea.buildArea()
     a.hammer.load(720, 290, 77, 205, hammer, "Sledgehammer")
 
     local function shovel()
-        if utils.manager.shovel.loc == "Basement-Before" then
-            utils.manager.setCurItem(utils.manager.shovel)
-            a.shovel.hovertext = "Storage - Shovel"
-        elseif (utils.manager.curItem.name == "Shovel") and utils.manager.itemSelected then
-            utils.manager.shovel.loc = "Basement-Before"
-            utils.manager.dropCurItem()
-            a.shovel.hovertext = "Shovel"
-        end
+        a.manager.areaHandler(a.manager.shovel, "Basement-Before", a.shovel, "Storage - Shovel", "Shovel")
     end
     a.shovel = utils.clickableArea.buildArea()
     a.shovel.load(810, 215, 65, 275, shovel, "Shovel")
@@ -62,7 +41,7 @@ a.draw = function()
     love.graphics.draw(a.background, 98, 30)
     love.graphics.pop()
 
-    local ladder = a.utils.manager.ladder
+    local ladder = a.manager.ladder
     if (ladder.loc == "Basement-Before") then
         love.graphics.push()
         love.graphics.translate(a.ladder.x + 2, a.ladder.y + 2)
@@ -71,7 +50,7 @@ a.draw = function()
         love.graphics.pop()
     end
 
-    local hammer = a.utils.manager.hammer
+    local hammer = a.manager.hammer
     if (hammer.loc == "Basement-Before") then
         love.graphics.push()
         love.graphics.translate(a.hammer.x + 2, a.hammer.y + 2)
@@ -80,7 +59,7 @@ a.draw = function()
         love.graphics.pop()
     end
 
-    local shovel = a.utils.manager.shovel
+    local shovel = a.manager.shovel
     if (shovel.loc == "Basement-Before") then
         love.graphics.push()
         love.graphics.translate(a.shovel.x + 2, a.shovel.y + 2)
