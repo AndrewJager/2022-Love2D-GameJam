@@ -14,10 +14,11 @@ a.load = function(utils)
         return item
     end
     a.items = {}
-    a.pillow = makeItem("Pillow", love.graphics.newImage("img/items/pillow.png"), "Living-After", 1.05, false, 0, 0)
+    a.pillow = makeItem("Pillow", love.graphics.newImage("img/items/pillow.png"), "Living-After", 1.05, false, 0, 15)
     a.ladder = makeItem("Ladder", love.graphics.newImage("img/items/ladder.png"), "Basement-Before", 0.14, false, 20, 2)
     a.hammer = makeItem("Sledgehammer", love.graphics.newImage("img/items/sledgehammer.png"), "Basement-Before", 0.15, true, 50, 5)
     a.shovel = makeItem("Shovel", love.graphics.newImage("img/items/shovel.png"), "Basement-Before", 0.14, true, 60, 0)
+    a.picture = makeItem("Missing Picture", love.graphics.newImage("img/items/picture.png"), "Living-After", 0.26, true, 36, 2)
 
     a.scenes = {}
     a.selectedScene = nil
@@ -42,6 +43,7 @@ a.load = function(utils)
     -- goals
     a.readnote = false
     a.viewedpictures = false
+    a.picturePlaced = false
 end
 
 a.update = function(dt)

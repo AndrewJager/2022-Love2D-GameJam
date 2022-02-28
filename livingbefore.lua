@@ -18,6 +18,7 @@ a.load = function(utils)
 
     local function pictures()
         utils.manager.addDialog("Family pictures")
+        utils.manager.viewedpictures = true
     end
     a.pictures = utils.clickableArea.buildArea()
     a.pictures.load(375, 85, 280, 170, pictures, "Pictures")

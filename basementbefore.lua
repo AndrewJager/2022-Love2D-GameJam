@@ -3,6 +3,13 @@ local a = {}
 a.load = function(utils)
     a.name = "Basement-Before"
     a.background = love.graphics.newImage("img/basement-before.png")
+    a.colState = 1
+    a.colImgs = {}
+    table.insert(a.colImgs, love.graphics.newImage("img/items/col-A.png"))
+    table.insert(a.colImgs, love.graphics.newImage("img/items/col-B.png"))
+    table.insert(a.colImgs, love.graphics.newImage("img/items/col-C.png"))
+    table.insert(a.colImgs, love.graphics.newImage("img/items/col-D.png"))
+    table.insert(a.colImgs, love.graphics.newImage("img/items/col-E.png"))
     a.manager = utils.manager
 
     local function exit()
@@ -28,6 +35,20 @@ a.load = function(utils)
     end
     a.shovel = utils.clickableArea.buildArea()
     a.shovel.load(810, 215, 65, 275, shovel, "Shovel")
+
+    local function column()
+        if (a.manager.curItem ~= nil) and (a.manager.curItem.name == "Sledgehammer") 
+            and a.manager.itemSelected then
+            if a.colState <= 4 then
+                a.colState = a.colState + 1
+            end
+            if a.colState == 5 then
+                
+            end
+        end
+    end
+    a.column = utils.clickableArea.buildArea()
+    a.column.load(480, 30, 40, 460, column, "Support Column")
 end
 
 a.update = function()
@@ -39,6 +60,13 @@ a.draw = function()
     love.graphics.push()
     love.graphics.scale(0.85, 0.85)
     love.graphics.draw(a.background, 98, 30)
+    love.graphics.pop()
+
+    love.graphics.push()
+    love.graphics.setColor(0.8, 0.8, 0.8, 1)
+    love.graphics.translate(480, 30)
+    love.graphics.scale(0.41, 0.41)
+    love.graphics.draw(a.colImgs[a.colState])
     love.graphics.pop()
 
     local ladder = a.manager.ladder
@@ -72,6 +100,7 @@ a.draw = function()
     a.ladder.draw()
     a.hammer.draw()
     a.shovel.draw()
+    a.column.draw()
 end
 
 a.mousemoved = function(x, y)
@@ -79,6 +108,7 @@ a.mousemoved = function(x, y)
     a.ladder.mousemoved(x, y)
     a.hammer.mousemoved(x, y)
     a.shovel.mousemoved(x, y)
+    a.column.mousemoved(x, y)
 end
 
 a.mousepressed = function(x, y)
@@ -86,6 +116,7 @@ a.mousepressed = function(x, y)
     a.ladder.mousepressed(x, y)
     a.hammer.mousepressed(x, y)
     a.shovel.mousepressed(x, y)
+    a.column.mousepressed(x, y)
 end
 
 return a
