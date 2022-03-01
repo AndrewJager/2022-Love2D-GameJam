@@ -8,6 +8,7 @@ utils.manager = manager
 
 function love.load()
     love.window.setMode(1000, 700)
+    love.window.setTitle("Fragmented")
 
     manager.load(utils)
     manager.addScene(require("outsidebefore"))
@@ -17,8 +18,10 @@ function love.load()
     manager.addScene(require("outsideafter"))
     manager.addScene(require("bedroomafter"))
     manager.addScene(require("livingafter"))
-    manager.setScene("Outside-Before", true)
-    -- manager.setScene("Living-After")
+    manager.addScene(require("intro"))
+    manager.addScene(require("intro2"))
+
+    manager.setScene("Intro-2", true)
 end
 
 function love.update(dt)

@@ -20,6 +20,11 @@ a.load = function(utils)
     a.shovel = makeItem("Shovel", love.graphics.newImage("img/items/shovel.png"), "Basement-Before", 0.14, true, 60, 0)
     a.picture = makeItem("Missing Picture", love.graphics.newImage("img/items/picture.png"), "Living-After", 0.26, true, 36, 2)
 
+    a.backBefore = love.graphics.newImage("img/background/before.jpg")
+
+    a.talkFont = love.graphics.newFont("font/Architects_Daughter/ArchitectsDaughter-Regular.ttf", 15)
+    a.cleanFont = love.graphics.newFont("font/Source_Code_Pro/SourceCodePro-Medium.ttf", 20)
+
     a.scenes = {}
     a.selectedScene = nil
     a.nextScene = nil
@@ -34,13 +39,21 @@ a.load = function(utils)
     a.swtichAmt = 0
     a.passed = 0
 
-    a.d1 = "Hello"
-    a.d2 = "Two"
-    a.d3 = "Three"
-    a.d4 = "Four"
-    a.d5 = "Five"
-    a.d6 = "Six"
-    a.feedback = "Cats are evil"
+    local function makeDialog()
+        local d = {}
+        d.text = ""
+        table.insert(a.dialog, d)
+    end
+    a.dialog = {}
+    a.dTimePassed = 0
+    a.dStartTime = 0
+    makeDialog()
+    makeDialog()
+    makeDialog()
+    makeDialog()
+    makeDialog()
+    makeDialog()
+    a.feedback = ""
 
     a.itemX = 630
     a.itemY = 600
@@ -55,12 +68,12 @@ a.load = function(utils)
 end
 
 a.update = function(dt)
-    a.selectedScene.scene.update()
+    a.selectedScene.scene.update(dt)
 
     if a.switching then
         a.passed = (love.timer.getTime() - a.startTime) 
         a.swtichAmt = a.passed
-        if a.passed >= 1 then
+        if a.passed >= 0.5 then
             a.switching = false
             a.selectedScene = a.nextScene
             a.switchingB = true
@@ -71,60 +84,66 @@ a.update = function(dt)
     if a.switchingB then
         a.passed = love.timer.getTime() - a.startTime
         a.swtichAmt = a.passed
-        if a.passed >= 1 then
+        if a.passed >= 0.5 then
             a.switchingB = false
         end
+    end
+
+    if a.dTimePassed < 1 then
+        a.dTimePassed = love.timer.getTime() - a.dStartTime
     end
 end
 
 a.draw = function()
     a.selectedScene.scene.draw()
-    love.graphics.setLineWidth(1)
-    love.graphics.setLineJoin("bevel")
-    love.graphics.setColor(0, 0, 0.8, 1)
-    love.graphics.rectangle("line", 110, 550, 500, 130)
-    love.graphics.print(a.d1, 115, 555)
-    love.graphics.print(a.d2, 115, 575)
-    love.graphics.print(a.d3, 115, 595)
-    love.graphics.print(a.d4, 115, 615)
-    love.graphics.print(a.d5, 115, 635)
-    love.graphics.print(a.d6, 115, 655)
 
-    if a.itemSelected then
-        love.graphics.setColor(1, 1, 1, 1)
-    end
-    love.graphics.rectangle("line", a.itemX, a.itemY, a.itemW, a.itemH)
-    if a.curItem ~= nil then
-        love.graphics.push()
-        love.graphics.translate(635, 600)
-        love.graphics.translate(a.curItem.offsetX, a.curItem.offsetY)
-        love.graphics.scale(a.curItem.scale, a.curItem.scale)
-        if a.curItem.rot45 then
-            love.graphics.rotate(math.rad(45))
+
+    if not (a.selectedScene.name == "Intro") then
+        love.graphics.setLineWidth(1)
+        love.graphics.setLineJoin("bevel")
+        love.graphics.setColor(0, 0, 0.8, 1)
+        love.graphics.rectangle("line", 110, 550, 500, 130)
+        love.graphics.setFont(a.talkFont)
+        love.graphics.print(a.dialog[1], 115, 555)
+        love.graphics.print(a.dialog[2], 115, 575)
+        love.graphics.print(a.dialog[3], 115, 595)
+        love.graphics.print(a.dialog[4], 115, 615)
+        love.graphics.print(a.dialog[5], 115, 635)
+        love.graphics.setColor(0, 0, 0.8, a.dTimePassed)
+        love.graphics.print(a.dialog[6], 115, 655)
+
+        if a.itemSelected then
+            love.graphics.setColor(1, 1, 1, 1)
         end
-        love.graphics.draw(a.curItem.img)
-        love.graphics.pop()
-    end
+        love.graphics.rectangle("line", a.itemX, a.itemY, a.itemW, a.itemH)
+        if a.curItem ~= nil then
+            love.graphics.push()
+            love.graphics.translate(635, 600)
+            love.graphics.translate(a.curItem.offsetX, a.curItem.offsetY)
+            love.graphics.scale(a.curItem.scale, a.curItem.scale)
+            if a.curItem.rot45 then
+                love.graphics.rotate(math.rad(45))
+            end
+            love.graphics.draw(a.curItem.img)
+            love.graphics.pop()
+        end
 
-    love.graphics.setColor(0.8, 0, 0, 1)
-    love.graphics.rectangle("line", 630, 550, 350, 20)
-    love.graphics.print(a.feedback, 635, 553)
+        love.graphics.setColor(0.8, 0, 0, 1)
+        love.graphics.rectangle("line", 630, 550, 350, 20)
+        love.graphics.print(a.feedback, 635, 553)
 
-    love.graphics.print(a.passed, 100, 100)
-
-    if a.switching then
-        love.graphics.push()
-        love.graphics.setColor(0.8, 0.8, 0.8, a.passed)
-        love.graphics.rectangle("fill", 0, 0, 1000, 700)
-        love.graphics.pop()
-        love.graphics.setColor(0.8, 0.8, 0.8, 1) -- Not sure why I need to do this
-    end
-    if a.switchingB then
-        love.graphics.push()
-        love.graphics.setColor(0.8, 0.8, 0.8, 1 - a.passed)
-        love.graphics.rectangle("fill", 0, 0, 1000, 700)
-        love.graphics.pop()
-        love.graphics.setColor(0.8, 0.8, 0.8, 1) -- Not sure why I need to do this
+        if a.switching then
+            love.graphics.push("all")
+            love.graphics.setColor(0.8, 0.8, 0.8, a.passed * 2)
+            love.graphics.rectangle("fill", 0, 0, 1000, 700)
+            love.graphics.pop()
+        end
+        if a.switchingB then
+            love.graphics.push("all")
+            love.graphics.setColor(0.8, 0.8, 0.8, 1 - a.passed * 2)
+            love.graphics.rectangle("fill", 0, 0, 1000, 700)
+            love.graphics.pop()
+        end
     end
 end
 
@@ -170,12 +189,14 @@ a.setScene = function(sceneName, force)
 end
 
 a.addDialog = function(text)
-    a.d1 = a.d2
-    a.d2 = a.d3
-    a.d3 = a.d4
-    a.d4 = a.d5
-    a.d5 = a.d6
-    a.d6 = text
+    a.dialog[1] = a.dialog[2]
+    a.dialog[2] = a.dialog[3]
+    a.dialog[3] = a.dialog[4]
+    a.dialog[4] = a.dialog[5]
+    a.dialog[5] = a.dialog[6]
+    a.dialog[6] = text
+    a.dTimePassed = 0
+    a.dStartTime = love.timer.getTime()
 end
 
 a.setCurItem = function(item)
