@@ -14,7 +14,7 @@ a.load = function(utils)
     a.manager = utils.manager
     a.text = {}
     a.font = love.graphics.newFont("font/Architects_Daughter/ArchitectsDaughter-Regular.ttf", 20)
-    a.font = love.graphics.newFont("font/Architects_Daughter/ArchitectsDaughter-Regular.ttf", 20)
+    a.cleanFont = love.graphics.newFont("font/Source_Code_Pro/SourceCodePro-Medium.ttf", 20)
     a.back = a.manager.backBefore
 
     a.begin = false
@@ -81,7 +81,7 @@ a.draw = function()
     end
 
     if a.begin then
-        love.graphics.setFont(a.manager.cleanFont)
+        love.graphics.setFont(a.cleanFont)
         love.graphics.shear(0, -0.02)
         love.graphics.setColor(0.1, 0.1, 0.1, 1)
         love.graphics.print("(click anywhere)", 425, 600)

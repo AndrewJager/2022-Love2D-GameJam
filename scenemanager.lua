@@ -21,9 +21,10 @@ a.load = function(utils)
     a.picture = makeItem("Missing Picture", love.graphics.newImage("img/items/picture.png"), "Living-After", 0.26, true, 36, 2)
 
     a.backBefore = love.graphics.newImage("img/background/before.jpg")
+    a.backAfter = love.graphics.newImage("img/background/after.jpg")
 
     a.talkFont = love.graphics.newFont("font/Architects_Daughter/ArchitectsDaughter-Regular.ttf", 15)
-    a.cleanFont = love.graphics.newFont("font/Source_Code_Pro/SourceCodePro-Medium.ttf", 20)
+    a.cleanFont = love.graphics.newFont("font/Source_Code_Pro/SourceCodePro-Medium.ttf", 15)
 
     a.scenes = {}
     a.selectedScene = nil
@@ -98,7 +99,8 @@ a.draw = function()
     a.selectedScene.scene.draw()
 
 
-    if not (a.selectedScene.name == "Intro") then
+    if not ((a.selectedScene.name == "Intro")
+            or (a.selectedScene.name == "Title")) then
         love.graphics.setLineWidth(1)
         love.graphics.setLineJoin("bevel")
         love.graphics.setColor(0, 0, 0.8, 1)
@@ -109,8 +111,10 @@ a.draw = function()
         love.graphics.print(a.dialog[3], 115, 595)
         love.graphics.print(a.dialog[4], 115, 615)
         love.graphics.print(a.dialog[5], 115, 635)
+        love.graphics.push()
         love.graphics.setColor(0, 0, 0.8, a.dTimePassed)
         love.graphics.print(a.dialog[6], 115, 655)
+        love.graphics.pop()
 
         if a.itemSelected then
             love.graphics.setColor(1, 1, 1, 1)
@@ -129,7 +133,8 @@ a.draw = function()
         end
 
         love.graphics.setColor(0.8, 0, 0, 1)
-        love.graphics.rectangle("line", 630, 550, 350, 20)
+        love.graphics.rectangle("line", 630, 550, 350, 30)
+        love.graphics.setFont(a.cleanFont)
         love.graphics.print(a.feedback, 635, 553)
 
         if a.switching then

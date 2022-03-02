@@ -3,6 +3,7 @@ local a = {}
 a.load = function(utils)
     a.name = "Outside-Before"
     a.manager = utils.manager
+    a.back = utils.manager.backBefore
     a.background = love.graphics.newImage("img/outside-before.png")
     a.treeImg = love.graphics.newImage("img/tree-before.png")
     a.rackImg = love.graphics.newImage("img/items/rack.png")
@@ -43,11 +44,16 @@ a.load = function(utils)
 end
 
 a.update = function()
-    
+
 end
 
 a.draw = function()
-    love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
+    love.graphics.push()
+    love.graphics.setColor(0.9, 0.9, 0.9, 1)
+    love.graphics.scale(0.5, 0.5)
+    love.graphics.draw(a.back, -10, -10)
+    love.graphics.pop()
+
     love.graphics.push()
     love.graphics.scale(0.7, 0.7)
     love.graphics.draw(a.background, 100, 30)

@@ -3,6 +3,7 @@ local a = {}
 a.load = function(utils)
     a.name = "Outside-After"
     a.manager = utils.manager
+    a.back = utils.manager.backAfter
     a.background = love.graphics.newImage("img/outside-after.png")
     a.noteImg = love.graphics.newImage("img/items/note.png")
     a.rackImg = love.graphics.newImage("img/items/rack.png")
@@ -80,14 +81,35 @@ a.load = function(utils)
     end
     a.sRack = utils.clickableArea.buildArea()
     a.sRack.load(660, 270, 50, 140, shovelRack, "Storage - Shovel")
+
+
+    a.introScript = utils.sceneScripter.buildScene()
+    a.introScript.load()
+    a.introScript.addEvent(function()
+            a.manager.addDialog("Test")
+        end, 0)
+
+    a.introScript.addEvent(function()
+            
+        end, 6)
 end
 
 a.update = function()
     a.noteScript.update()
+    if not a.started then 
+        a.introScript.start()
+        a.started = true
+    end
+    a.introScript.update()
 end
 
 a.draw = function()
-    love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
+    love.graphics.push()
+    love.graphics.setColor(0.8, 0.8, 0.8, 1)
+    love.graphics.scale(0.5, 0.5)
+    love.graphics.draw(a.back, -10, -10)
+    love.graphics.pop()
+    
     love.graphics.push()
     love.graphics.scale(0.7, 0.7)
     love.graphics.draw(a.background, 100, 30)
