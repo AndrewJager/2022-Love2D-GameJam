@@ -25,12 +25,10 @@ function love.load()
     manager.addScene(require("intro2"))
     manager.addScene(require("title"))
 
-    manager.setScene("Intro-2", true)
+    manager.setScene("Outside-After", true)
 
     manager.effect = moonshine(moonshine.effects.vignette)
-        -- .chain(moonshine.effects.gaussianblur)
-    manager.effect.vignette.opacity = 0.2
-    -- manager.effect.godsray.exposure = 0.1
+    manager.effect.vignette.opacity = 0.25
 end
 
 function love.update(dt)
@@ -38,7 +36,6 @@ function love.update(dt)
 end
 
 function love.draw()
-    -- manager.draw()
     manager.effect(function()
         manager.draw()
     end)

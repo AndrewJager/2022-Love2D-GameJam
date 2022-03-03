@@ -4,6 +4,7 @@ a.load = function(utils)
     a.name = "Bedroom-After"
     a.background = love.graphics.newImage("img/bedroom-after.png")
     a.doorImg = love.graphics.newImage("img/items/bedroom-door.png")
+    a.back = utils.manager.backAfter
 
     a.doorBroken = false
     a.pillowPlaced = false
@@ -47,12 +48,17 @@ a.load = function(utils)
     a.bed.load(150, 340, 370, 145, bed, "Bed")
 end
 
-a.update = function()
-   
+a.update = function(dt)
+
 end
 
 a.draw = function()
-    love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
+    love.graphics.push()
+    love.graphics.setColor(0.9, 0.9, 0.9, 1)
+    love.graphics.scale(0.5, 0.5)
+    love.graphics.draw(a.back, -10, -10)
+    love.graphics.pop()
+
     love.graphics.draw(a.background, 98, 30)
 
     if not a.doorBroken then

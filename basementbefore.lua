@@ -2,6 +2,7 @@ local a = {}
 
 a.load = function(utils)
     a.name = "Basement-Before"
+    a.back = utils.manager.backBefore
     a.background = love.graphics.newImage("img/basement-before.png")
     a.colState = 1
     a.colImgs = {}
@@ -36,6 +37,17 @@ a.load = function(utils)
     a.shovel = utils.clickableArea.buildArea()
     a.shovel.load(810, 215, 65, 275, shovel, "Shovel")
 
+    local colDelay = a.manager.textDelay
+    a.colScript = utils.sceneScripter.buildScene()
+    a.colScript.load()
+    a.colScript.addEvent(function()
+            a.manager.addDialog("This always seem so sturdy to me, like it could never break")
+        end, 0)
+    a.colScript.addEvent(function()
+            a.manager.addDialog("I guess the earthquake was too much for it")
+        end, 1 * colDelay)
+
+    a.colDescDone = false
     local function column()
         if (a.manager.curItem ~= nil) and (a.manager.curItem.name == "Sledgehammer") 
             and a.manager.itemSelected then
@@ -49,18 +61,43 @@ a.load = function(utils)
             else
                 a.manager.feedback = "That doesn't seem very wise"
             end
+        else
+            if not a.colDescDone then
+                a.colScript.start()
+                a.colDescDone = true
+            end
         end
+
     end
     a.column = utils.clickableArea.buildArea()
-    a.column.load(480, 30, 40, 460, column, "Support Column")
+    a.column.load(480, 30, 40, 460, column, "Support Column", true)
+
+    local delay = a.manager.textDelay
+    a.introScript = utils.sceneScripter.buildScene()
+    a.introScript.load()
+    a.introScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("This was our basement. My parents kept their tools here")
+        end, 1 * delay)
 end
 
 a.update = function()
-   
+    a.colScript.update()
+
+    if not a.started then 
+        a.introScript.start()
+        a.started = true
+    end
+    a.introScript.update()
 end
 
 a.draw = function()
-    love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
+    love.graphics.push()
+    love.graphics.setColor(0.8, 0.8, 0.8, 1)
+    love.graphics.scale(0.5, 0.5)
+    love.graphics.draw(a.back, -10, -10)
+    love.graphics.pop()
+
     love.graphics.push()
     love.graphics.scale(0.85, 0.85)
     love.graphics.draw(a.background, 98, 30)

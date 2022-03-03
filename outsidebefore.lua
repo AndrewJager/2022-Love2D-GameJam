@@ -22,7 +22,7 @@ a.load = function(utils)
         end
     end
     a.switch = utils.clickableArea.buildArea()
-    a.switch.load(15, 600, 80, 80, switch, "Swap to the After")
+    a.switch.load(15, 600, 80, 80, switch, "After")
 
     local function tree()
         a.manager.areaHandler(a.manager.ladder, "Outside", a.tree, "Tree", "Ladder")
@@ -41,10 +41,25 @@ a.load = function(utils)
     end
     a.sRack = utils.clickableArea.buildArea()
     a.sRack.load(660, 270, 50, 140, shovelRack, "Storage - Shovel")
+
+    local delay = 0.1
+    a.introScript = utils.sceneScripter.buildScene()
+    a.introScript.load()
+    a.introScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("I remember how safe this place felt")
+        end, 1 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("How nothing bad could ever happen here")
+        end, 2 * delay)
 end
 
 a.update = function()
-
+    if not a.started then 
+        a.introScript.start()
+        a.started = true
+    end
+    a.introScript.update()
 end
 
 a.draw = function()
@@ -94,6 +109,15 @@ a.draw = function()
         love.graphics.draw(shovel.img)
         love.graphics.pop()
     end
+
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("line", a.switch.x, a.switch.y, a.switch.width, a.switch.height)
+    local switchImg = a.manager.switchImg
+    love.graphics.push()
+    love.graphics.translate(a.switch.x + 2, a.switch.y + 2)
+    love.graphics.scale(0.25, 0.25)
+    love.graphics.draw(switchImg)
+    love.graphics.pop()
 
     a.door.draw()
     a.switch.draw()

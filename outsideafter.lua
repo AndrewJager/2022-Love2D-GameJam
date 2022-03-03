@@ -9,14 +9,14 @@ a.load = function(utils)
     a.rackImg = love.graphics.newImage("img/items/rack.png")
 
     local function enterDoor()
-        
+        a.manager.feedback = "It won't open"
     end
     a.door = utils.clickableArea.buildArea()
     a.door.load(420, 270, 100, 165, enterDoor, "Door")
     a.treeImg = love.graphics.newImage("img/tree-after.png")
 
     local function window()
-        utils.manager.setScene("Bedroom-After")
+        a.manager.feedback = "Not yet"
     end
     a.window = utils.clickableArea.buildArea()
     a.window.load(120, 225, 60, 95, window, "Window")
@@ -29,7 +29,8 @@ a.load = function(utils)
         end
     end
     a.switch = utils.clickableArea.buildArea()
-    a.switch.load(15, 600, 80, 80, switch, "Swap to the Before")
+    a.switch.load(15, 600, 80, 80, switch, "Before")
+    a.switch.enabled = false
 
     local function tree()
         a.manager.areaHandler(a.manager.ladder, "Outside", a.tree, "Tree", "Ladder") 
@@ -81,17 +82,43 @@ a.load = function(utils)
     end
     a.sRack = utils.clickableArea.buildArea()
     a.sRack.load(660, 270, 50, 140, shovelRack, "Storage - Shovel")
+    a.switchTime = 0
+    a.switchTimePassed = 0
 
-
+    local delay = 0.1
     a.introScript = utils.sceneScripter.buildScene()
     a.introScript.load()
-    a.introScript.addEvent(function()
-            a.manager.addDialog("Test")
+    a.introScript.addEvent(function() 
+            a.manager.clearDialog()
         end, 0)
-
     a.introScript.addEvent(function()
-            
-        end, 6)
+            a.manager.addDialog("I need you to find something... something that matters")
+        end, 1 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("I'm not sure exactly what. We'll figure it out as we go")
+        end, 2 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("Click on something to interact with it")
+        end, 4 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("If you find an object, you can pick it up")
+        end, 5 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("Click on the object in your inventory to select it")
+        end, 6 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("Clicking on something with an object selected will use the object")
+        end, 7 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("And finally, use the button on the left to shift between then and now")
+            a.switch.enabled = true
+            a.switchTime = love.timer.getTime()
+        end, 8 * delay)
+    a.introScript.addEvent(function()
+            a.manager.addDialog("It is only possible to shift while outside")
+            a.window.func = function() a.manager.setScene("Bedroom-After") end
+        end, 9 * delay)
 end
 
 a.update = function()
@@ -101,6 +128,10 @@ a.update = function()
         a.started = true
     end
     a.introScript.update()
+
+    if a.switch.enabled and (a.switchTimePassed < 1) then
+        a.switchTimePassed = love.timer.getTime() - a.switchTime
+    end
 end
 
 a.draw = function()
@@ -155,6 +186,17 @@ a.draw = function()
         love.graphics.translate(a.sRack.x + 10, a.sRack.y + 2)
         love.graphics.scale(0.2, 0.2)
         love.graphics.draw(shovel.img)
+        love.graphics.pop()
+    end
+
+    if a.switch.enabled then
+        love.graphics.setColor(0, 0, 0, a.switchTimePassed)
+        love.graphics.rectangle("line", a.switch.x, a.switch.y, a.switch.width, a.switch.height)
+        local switchImg = a.manager.switchImg
+        love.graphics.push()
+        love.graphics.translate(a.switch.x + 2, a.switch.y + 2)
+        love.graphics.scale(0.25, 0.25)
+        love.graphics.draw(switchImg)
         love.graphics.pop()
     end
 

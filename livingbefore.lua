@@ -2,6 +2,8 @@ local a = {}
 
 a.load = function(utils)
     a.name = "Living-Before"
+    a.manager = utils.manager
+    a.back = utils.manager.backBefore
     a.background = love.graphics.newImage("img/living-before.png")
 
     local function exitHouse()
@@ -17,7 +19,11 @@ a.load = function(utils)
     a.bedroomDoor.load(100, 155, 85, 310, enterRoom, "Bedroom")
 
     local function pictures()
-        utils.manager.addDialog("Family pictures")
+        if not a.manager.viewedpictures then
+            utils.manager.addDialog("Family pictures. Mostly peoplle I never really knew. One is missing")
+        else
+            utils.manager.addDialog("Maybe you can find the missing picture somewhere?")
+        end
         utils.manager.viewedpictures = true
     end
     a.pictures = utils.clickableArea.buildArea()
@@ -28,14 +34,31 @@ a.load = function(utils)
     end
     a.basement = utils.clickableArea.buildArea()
     a.basement.load(240, 405, 140, 85, basement, "Basement Stairs")
+
+    local delay = a.manager.textDelay
+    a.introScript = utils.sceneScripter.buildScene()
+    a.introScript.load()
+    a.introScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("It's a small home, but it was our home")
+        end, 1 * delay)
 end
 
 a.update = function()
-   
+    if not a.started then 
+        a.introScript.start()
+        a.started = true
+    end
+    a.introScript.update() 
 end
 
 a.draw = function()
-    love.graphics.setBackgroundColor(0.8, 0.8, 0.8, 1)
+    love.graphics.push()
+    love.graphics.setColor(0.8, 0.8, 0.8, 1)
+    love.graphics.scale(0.5, 0.5)
+    love.graphics.draw(a.back, -10, -10)
+    love.graphics.pop()
+    
     love.graphics.push()
     love.graphics.scale(0.85, 0.85)
     love.graphics.draw(a.background, 98, 30)

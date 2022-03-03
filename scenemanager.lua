@@ -22,9 +22,11 @@ a.load = function(utils)
 
     a.backBefore = love.graphics.newImage("img/background/before.jpg")
     a.backAfter = love.graphics.newImage("img/background/after.jpg")
+    a.switchImg = love.graphics.newImage("img/items/switch.png")
 
     a.talkFont = love.graphics.newFont("font/Architects_Daughter/ArchitectsDaughter-Regular.ttf", 15)
     a.cleanFont = love.graphics.newFont("font/Source_Code_Pro/SourceCodePro-Medium.ttf", 15)
+    a.textDelay = 0.1
 
     a.scenes = {}
     a.selectedScene = nil
@@ -111,7 +113,7 @@ a.draw = function()
         love.graphics.print(a.dialog[3], 115, 595)
         love.graphics.print(a.dialog[4], 115, 615)
         love.graphics.print(a.dialog[5], 115, 635)
-        love.graphics.push()
+        love.graphics.push("all")
         love.graphics.setColor(0, 0, 0.8, a.dTimePassed)
         love.graphics.print(a.dialog[6], 115, 655)
         love.graphics.pop()
@@ -202,6 +204,15 @@ a.addDialog = function(text)
     a.dialog[6] = text
     a.dTimePassed = 0
     a.dStartTime = love.timer.getTime()
+end
+
+a.clearDialog = function()
+    a.dialog[1] = ""
+    a.dialog[2] = ""
+    a.dialog[3] = ""
+    a.dialog[4] = ""
+    a.dialog[5] = ""
+    a.dialog[6] = ""
 end
 
 a.setCurItem = function(item)
