@@ -55,6 +55,7 @@ a.load = function(utils)
             a.manager.picturePlaced = true
             a.wall.enabled = false
             a.manager.dropCurItem()
+            a.manager.addDialog("That's one thing back in its place")
         end
     end
     a.wall = utils.clickableArea.buildArea()
@@ -65,7 +66,7 @@ a.load = function(utils)
     a.introScript.load()
     a.introScript.addEvent(function()
             a.manager.addDialog("")
-            a.manager.addDialog("Such a mess")
+            a.manager.addDialog("Such a mess") -- Yes, I'm talking about my code
         end, 0.5 * delay)
     a.introScript.addEvent(function()
         a.manager.addDialog("We should dig through here. Maybe there's something worth finding?")

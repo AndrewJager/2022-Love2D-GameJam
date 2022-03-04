@@ -97,7 +97,7 @@ a.load = function(utils)
     a.afterScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("Thank you for doing this with me")
-        end, 1 * delay)
+        end, 0.5 * delay)
 
     a.shake = false
     a.fall = false

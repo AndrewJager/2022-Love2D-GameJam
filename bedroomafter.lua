@@ -53,7 +53,7 @@ a.load = function(utils)
     a.afterScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("Maybe some things have to happen")
-        end, 1 * delay)
+        end, 0.5 * delay)
 
     local delay = a.manager.textDelay
     a.introScript = utils.sceneScripter.buildScene()

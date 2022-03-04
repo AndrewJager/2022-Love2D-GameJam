@@ -49,15 +49,15 @@ a.load = function(utils)
     ) end, 0.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
-        "# Sometimes, it feels like everything has fallen apart"
+        "# The first step can be the hardest"
     ) end, 1.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
-        "# But if you can find something that was missing before"
+        "# But once it's done, the impossible task seems a tiny bit possible"
     ) end, 2.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
-        "# Then at least one thing is better than it was before"
+        "# Eventually, we have to put ourselves back together as well "
     ) end, 3.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
@@ -134,7 +134,7 @@ a.load = function(utils)
     a.afterScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("Some events are inevitable")
-        end, 1 * delay)
+        end, 0.5 * delay)
 
     a.dark = false
     a.darkStart = 0

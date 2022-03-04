@@ -48,7 +48,7 @@ a.load = function(utils)
     a.afterScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("At least I didn't have to face this alone")
-        end, 1 * delay)
+        end, 0.5 * delay)
 end
 
 a.update = function()

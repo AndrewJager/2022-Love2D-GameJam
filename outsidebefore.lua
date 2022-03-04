@@ -58,7 +58,7 @@ a.load = function(utils)
     a.afterScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("We just have to pick up the pieces and put them back together")
-        end, 1 * delay)
+        end, 0.5 * delay)
 end
 
 a.update = function()
