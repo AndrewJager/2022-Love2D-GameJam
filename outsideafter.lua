@@ -49,15 +49,15 @@ a.load = function(utils)
     ) end, 0.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
-        "# Sometimes, it feels like everything has fallen apart                   #"
+        "# Sometimes, it feels like everything has fallen apart"
     ) end, 1.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
-        "# But if you can find something that was missing before              #"
+        "# But if you can find something that was missing before"
     ) end, 2.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(
-        "# Then at least one thing is better than it was before                  #"
+        "# Then at least one thing is better than it was before"
     ) end, 3.5)
     a.noteScript.addEvent(
         function() a.manager.addDialog(

@@ -34,7 +34,7 @@ a.load = function(utils)
             and a.manager.itemSelected then
                 a.pillowPlaced = true
                 a.manager.dropCurItem()
-        elseif a.manager.picturePlaced then
+        elseif a.manager.picturePlaced and a.manager.readnote then
             if a.pillowPlaced then
                 utils.manager.setScene("Dream")
             else

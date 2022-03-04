@@ -14,7 +14,7 @@ a.load = function(utils)
     a.bedroomDoor.load(105, 90, 130, 340, enterRoom, "Bedroom")
 
     local function basement()
-        a.manager.feedback = "The stairs are filled with rubble. No way in."
+        a.manager.feedback = "Too much rubble. No way in."
     end
     a.basement = utils.clickableArea.buildArea()
     a.basement.load(240, 385, 140, 85, basement, "Basement Stairs")
@@ -31,14 +31,10 @@ a.load = function(utils)
     local function rubble()
         if (a.manager.curItem ~= nil) and (a.manager.curItem.name == "Shovel") 
             and a.manager.itemSelected then
-            if a.manager.readnote and a.manager.viewedpictures then
-                a.cleared = true
-                a.rubble.enabled = false
-                a.pillow.enabled = true
-                a.picture.enabled = true
-            else
-                a.manager.feedback = "You have no desire to to that"
-            end
+            a.cleared = true
+            a.rubble.enabled = false
+            a.pillow.enabled = true
+            a.picture.enabled = true
         end
     end
     a.rubble = utils.clickableArea.buildArea()
@@ -63,10 +59,25 @@ a.load = function(utils)
     end
     a.wall = utils.clickableArea.buildArea()
     a.wall.load(280, 160, 250, 130, wall, "Wall")
+
+    local delay = a.manager.textDelay
+    a.introScript = utils.sceneScripter.buildScene()
+    a.introScript.load()
+    a.introScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("Such a mess")
+        end, 0.5 * delay)
+    a.introScript.addEvent(function()
+        a.manager.addDialog("We should dig through here. Maybe there's something worth finding?")
+    end, 1.5 * delay)
 end
 
 a.update = function()
-   
+    if not a.started then 
+        a.introScript.start()
+        a.started = true
+    end
+    a.introScript.update()
 end
 
 a.draw = function()
