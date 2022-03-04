@@ -202,7 +202,7 @@ a.load = function(utils)
         a.flip = false
     end, 24)
     a.endScript.addEvent(function()
-        addText("Thanks to pablomayobre for running the game jam!", 1600, 450)
+        addText("Thanks to pablomayobre for hosting the game jam!", 1600, 450)
     end, 25)
     a.endScript.addEvent(function()
         a.flip = true
