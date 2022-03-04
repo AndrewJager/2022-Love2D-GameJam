@@ -34,6 +34,7 @@ a.load = function(utils)
     a.introScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("This was my room. Nothing else to say, really")
+            a.manager.beenInRoom = true
         end, 1 * delay)
 end
 
@@ -51,7 +52,7 @@ a.draw = function()
     love.graphics.scale(0.5, 0.5)
     love.graphics.draw(a.back, -10, -10)
     love.graphics.pop()
-    
+
     love.graphics.draw(a.background, 98, 30)
 
     a.door.draw()

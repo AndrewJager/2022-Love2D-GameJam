@@ -21,7 +21,7 @@ a.load = function(utils)
     local function pictures()
         if not a.manager.viewedpictures then
             utils.manager.addDialog("Family pictures. Mostly peoplle I never really knew. One is missing")
-        else
+        elseif not a.manager.dreamed then
             utils.manager.addDialog("Maybe you can find the missing picture somewhere?")
         end
         utils.manager.viewedpictures = true
@@ -41,6 +41,13 @@ a.load = function(utils)
     a.introScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("It's a small home, but it was our home")
+        end, 0.5 * delay)
+
+    a.afterScript = utils.sceneScripter.buildScene()
+    a.afterScript.load()
+    a.afterScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("At least I didn't have to face this alone")
         end, 1 * delay)
 end
 
@@ -49,7 +56,14 @@ a.update = function()
         a.introScript.start()
         a.started = true
     end
-    a.introScript.update() 
+    a.introScript.update()
+
+    if a.manager.dreamed and (not a.afterStarted) then 
+        a.afterScript.start()
+        a.bedroomDoor.func = function() a.manager.feedback = a.manager.ending end
+        a.afterStarted = true
+    end
+    a.afterScript.update()
 end
 
 a.draw = function()
@@ -58,7 +72,7 @@ a.draw = function()
     love.graphics.scale(0.5, 0.5)
     love.graphics.draw(a.back, -10, -10)
     love.graphics.pop()
-    
+
     love.graphics.push()
     love.graphics.scale(0.85, 0.85)
     love.graphics.draw(a.background, 98, 30)

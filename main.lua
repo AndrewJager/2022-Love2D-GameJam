@@ -24,8 +24,9 @@ function love.load()
     manager.addScene(require("intro"))
     manager.addScene(require("intro2"))
     manager.addScene(require("title"))
+    manager.addScene(require("dream"))
 
-    manager.setScene("Outside-After", true)
+    manager.setScene("Intro", true)
 
     manager.effect = moonshine(moonshine.effects.vignette)
     manager.effect.vignette.opacity = 0.25

@@ -18,7 +18,7 @@ a.load = function(utils)
         if a.manager.curItem == nil then
             utils.manager.setScene("Outside-After")
         else
-            a.manager.feedback = "You cannot switch times while holding an item"
+            a.manager.feedback = "You cannot shift while holding an item"
         end
     end
     a.switch = utils.clickableArea.buildArea()
@@ -42,16 +42,23 @@ a.load = function(utils)
     a.sRack = utils.clickableArea.buildArea()
     a.sRack.load(660, 270, 50, 140, shovelRack, "Storage - Shovel")
 
-    local delay = 0.1
+    local delay = a.manager.textDelay
     a.introScript = utils.sceneScripter.buildScene()
     a.introScript.load()
     a.introScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("I remember how safe this place felt")
-        end, 1 * delay)
+        end, 0.5 * delay)
     a.introScript.addEvent(function()
             a.manager.addDialog("How nothing bad could ever happen here")
-        end, 2 * delay)
+        end, 1 * delay)
+
+    a.afterScript = utils.sceneScripter.buildScene()
+    a.afterScript.load()
+    a.afterScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("We just have to pick up the pieces and put them back together")
+        end, 1 * delay)
 end
 
 a.update = function()
@@ -60,6 +67,13 @@ a.update = function()
         a.started = true
     end
     a.introScript.update()
+
+    if a.manager.dreamed and (not a.afterStarted) then 
+        a.afterScript.start()
+        a.switch.func = function() a.manager.feedback = a.manager.ending end
+        a.afterStarted = true
+    end
+    a.afterScript.update()
 end
 
 a.draw = function()

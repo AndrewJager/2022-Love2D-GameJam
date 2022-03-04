@@ -11,6 +11,12 @@ a.load = function(utils)
     table.insert(a.colImgs, love.graphics.newImage("img/items/col-C.png"))
     table.insert(a.colImgs, love.graphics.newImage("img/items/col-D.png"))
     table.insert(a.colImgs, love.graphics.newImage("img/items/col-E.png"))
+    a.colDlgs = {
+        "No more of this confusion",
+        "No longer will I be governed by fate!",
+        "This ends here!",
+        "This ends now!"
+    }
     a.manager = utils.manager
 
     local function exit()
@@ -52,11 +58,17 @@ a.load = function(utils)
         if (a.manager.curItem ~= nil) and (a.manager.curItem.name == "Sledgehammer") 
             and a.manager.itemSelected then
             if a.manager.dreamed then
+                a.manager.addDialog(a.colDlgs[a.colState])
                 if a.colState <= 4 then
                     a.colState = a.colState + 1
                 end
                 if a.colState == 5 then
-                    
+                    a.column.enabled = false
+                    a.stairs.enabled = false
+                    a.ladder.enabled = false
+                    a.hammer.enabled = false
+                    a.shovel.enabled = false
+                    a.endScript.start()
                 end
             else
                 a.manager.feedback = "That doesn't seem very wise"
@@ -78,10 +90,41 @@ a.load = function(utils)
     a.introScript.addEvent(function()
             a.manager.addDialog("")
             a.manager.addDialog("This was our basement. My parents kept their tools here")
+        end, 0.5 * delay)
+
+    a.afterScript = utils.sceneScripter.buildScene()
+    a.afterScript.load()
+    a.afterScript.addEvent(function()
+            a.manager.addDialog("")
+            a.manager.addDialog("Thank you for doing this with me")
         end, 1 * delay)
+
+    a.shake = false
+    a.fall = false
+    a.fallAmt = 0
+    a.dark = false
+    a.darkAmt = 0
+    a.darkStart = 0
+    a.endScript = utils.sceneScripter.buildScene()
+    a.endScript.load()
+    a.endScript.addEvent(function()
+        a.shake = true
+    end, 1 * delay)
+    a.endScript.addEvent(function()
+        a.fall = true
+        a.manager.drawUI = false
+    end, 3 * delay)
+    a.endScript.addEvent(function()
+        a.dark = true
+        a.darkStart = love.timer.getTime()
+    end, 5.5 * delay)
+    a.endScript.addEvent(function()
+        a.manager.setScene("Outside-After")
+        a.manager.broken = true
+    end, 7 * delay)
 end
 
-a.update = function()
+a.update = function(dt)
     a.colScript.update()
 
     if not a.started then 
@@ -89,14 +132,37 @@ a.update = function()
         a.started = true
     end
     a.introScript.update()
+
+    if a.manager.dreamed and (not a.afterStarted) then 
+        a.afterScript.start()
+        a.afterStarted = true
+    end
+    a.afterScript.update()
+
+    a.endScript.update()
+    if a.fall then
+        a.fallAmt = a.fallAmt + (dt * 500)
+    end
+
+    if a.dark and (a.darkStart ~= 0) and (a.darkAmt < 1) then
+        a.darkAmt = love.timer.getTime() - a.darkStart
+    end
 end
 
 a.draw = function()
+    if a.shake then
+        love.graphics.translate(math.random(-3, 3), math.random(-1, 1))
+    end
     love.graphics.push()
     love.graphics.setColor(0.8, 0.8, 0.8, 1)
     love.graphics.scale(0.5, 0.5)
     love.graphics.draw(a.back, -10, -10)
     love.graphics.pop()
+
+    love.graphics.push()
+    if a.fall then
+        love.graphics.translate(0, a.fallAmt)
+    end
 
     love.graphics.push()
     love.graphics.scale(0.85, 0.85)
@@ -135,6 +201,12 @@ a.draw = function()
         love.graphics.scale(0.4, 0.4)
         love.graphics.draw(shovel.img)
         love.graphics.pop()
+    end
+    love.graphics.pop()
+
+    if a.dark then
+        love.graphics.setColor(0, 0, 0, a.darkAmt)
+        love.graphics.rectangle("fill", 0, 0, 2000, 1000)
     end
 
     a.stairs.draw()

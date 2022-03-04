@@ -45,8 +45,9 @@ a.load = function(utils)
     a.rubble.load(450, 320, 300, 150, rubble, "Debris")
 
     local function picture()
-        a.manager.setCurItem(a.manager.picture)
-        a.picture.enabled = false
+        if a.manager.setCurItem(a.manager.picture) then
+            a.picture.enabled = false
+        end
     end
     a.picture = utils.clickableArea.buildArea()
     a.picture.load(640, 385, 80, 70, picture, "Missing Picture")

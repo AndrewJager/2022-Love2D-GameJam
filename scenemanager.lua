@@ -26,7 +26,8 @@ a.load = function(utils)
 
     a.talkFont = love.graphics.newFont("font/Architects_Daughter/ArchitectsDaughter-Regular.ttf", 15)
     a.cleanFont = love.graphics.newFont("font/Source_Code_Pro/SourceCodePro-Medium.ttf", 15)
-    a.textDelay = 0.1
+    a.textDelay = 2
+    a.drawUI = true
 
     a.scenes = {}
     a.selectedScene = nil
@@ -57,6 +58,7 @@ a.load = function(utils)
     makeDialog()
     makeDialog()
     a.feedback = ""
+    a.ending = "No. It's time to bring this to an end"
 
     a.itemX = 630
     a.itemY = 600
@@ -66,8 +68,10 @@ a.load = function(utils)
     -- goals
     a.readnote = false
     a.viewedpictures = false
+    a.beenInRoom = false
     a.picturePlaced = false
     a.dreamed = false
+    a.broken = false
 end
 
 a.update = function(dt)
@@ -102,10 +106,13 @@ a.draw = function()
 
 
     if not ((a.selectedScene.name == "Intro")
-            or (a.selectedScene.name == "Title")) then
+            or (a.selectedScene.name == "Title")
+            or (a.selectedScene.name == "Dream")
+            or (a.drawUI == false)) then
         love.graphics.setLineWidth(1)
         love.graphics.setLineJoin("bevel")
-        love.graphics.setColor(0, 0, 0.8, 1)
+        -- love.graphics.setColor(0, 0, 0.8, 1)
+        love.graphics.setColor(0, 0, 0, 1)
         love.graphics.rectangle("line", 110, 550, 500, 130)
         love.graphics.setFont(a.talkFont)
         love.graphics.print(a.dialog[1], 115, 555)
@@ -114,7 +121,7 @@ a.draw = function()
         love.graphics.print(a.dialog[4], 115, 615)
         love.graphics.print(a.dialog[5], 115, 635)
         love.graphics.push("all")
-        love.graphics.setColor(0, 0, 0.8, a.dTimePassed)
+        love.graphics.setColor(0, 0, 0, a.dTimePassed)
         love.graphics.print(a.dialog[6], 115, 655)
         love.graphics.pop()
 
@@ -134,7 +141,7 @@ a.draw = function()
             love.graphics.pop()
         end
 
-        love.graphics.setColor(0.8, 0, 0, 1)
+        love.graphics.setColor(0, 0, 0, 1)
         love.graphics.rectangle("line", 630, 550, 350, 30)
         love.graphics.setFont(a.cleanFont)
         love.graphics.print(a.feedback, 635, 553)
