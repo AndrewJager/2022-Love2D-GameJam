@@ -18,7 +18,7 @@ a.load = function(utils)
     a.broken = false
 
     local begin = 1
-    local delay = 2
+    local delay = a.manager.textDelay
     a.script = utils.sceneScripter.buildScene()
     a.script.load()
     a.script.addEvent(function()

@@ -36,7 +36,11 @@ a.load = function(utils)
                 a.manager.dropCurItem()
         elseif a.manager.picturePlaced and a.manager.readnote then
             if a.pillowPlaced then
-                utils.manager.setScene("Dream")
+                if not a.manager.dreamed then
+                    utils.manager.setScene("Dream")
+                else
+                    a.manager.feedback = "I'm not tired"
+                end
             else
                 a.manager.feedback = "You don't want to sleep without a pillow"
             end

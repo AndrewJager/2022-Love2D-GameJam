@@ -111,7 +111,6 @@ a.draw = function()
             or (a.drawUI == false)) then
         love.graphics.setLineWidth(1)
         love.graphics.setLineJoin("bevel")
-        -- love.graphics.setColor(0, 0, 0.8, 1)
         love.graphics.setColor(0, 0, 0, 1)
         love.graphics.rectangle("line", 110, 550, 500, 130)
         love.graphics.setFont(a.talkFont)
